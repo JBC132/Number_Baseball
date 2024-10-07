@@ -2,6 +2,7 @@ import random
 
 def start_game():
     game_set = False
+    tries = 0
 
     name1 = input("Player1 Name?: ")
     name2 = input("Player2 Name?: ")
@@ -9,28 +10,49 @@ def start_game():
     name1_num = input(name1 + "\'s number: ")
     name2_num = input(name2 + "\'s number: ")
 
+    name1_num_list = []
+    name2_num_list = []
+
     num_length = len(str(name1_num))
 
-    if random.randrange(0, 2) == 1:
+    turn = random.randrange(0, 2)
+    if turn == 1:
         print(name2, "goes first")
     else:
         print(name1, "goes first")
 
+    while not game_set:
+        if (tries+turn) % 2 == 0:
+            #name1 goes first
+            print(name1 + "\'s turn \n")
+            game_set = guess(name1_num_list, name2_num, num_length, game_set)
 
+        elif (tries+turn) % 2 == 1:
+            #name2 goes first
+            print(name2 + "\'s turn")
+            game_set = guess(name2_num_list, name1_num, num_length, game_set)
 
+        tries += 1
 
-    game_set = True
-
-def guess(num_list, origin_num, num_length):
+def guess(num_list, origin_num, num_length, game_set):
     # input guessed number
     while True:
         guessed_num = input("Guess a number: ")
+        if guessed_num == origin_num:
+            print("Correct!!")
+            game_set = True
+            return game_set
+
         if guessed_num in num_list:
             print("Already guessed. Try another number")
             continue
+
+        #elif       *************중복 제거!!!!*******************
+
+
         else:
             strike_ball(guessed_num, origin_num, num_length)
-            break
+            return game_set
 
 
 def strike_ball(guessed_num, origin_num, num_length):
@@ -48,7 +70,7 @@ def strike_ball(guessed_num, origin_num, num_length):
             ball_num -= 1
             strike_num += 1
 
-    result = str(strike_num) + "Strike " + str(ball_num) + "Ball"
-    print(result)
+    print(str(strike_num) + "Strike " + str(ball_num) + "Ball \n")
+    return 0
 
 start_game()
