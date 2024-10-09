@@ -7,8 +7,27 @@ def start_game():
     name1 = input("Player1 Name?: ")
     name2 = input("Player2 Name?: ")
 
-    name1_num = input(name1 + "\'s number: ")
-    name2_num = input(name2 + "\'s number: ")
+    while True:
+        duplicate = False
+        name1_num = input(name1 + "\'s number: ")
+        for i in range(4):
+            if str(name1_num).count(str(name1_num)[i]) != 1:
+                print("There can't be same number\n")
+                duplicate = True
+                break
+        if not duplicate:
+            break
+
+    while True:
+        duplicate = False
+        name2_num = input(name2 + "\'s number: ")
+        for i in range(4):
+            if str(name2_num).count(str(name2_num)[i]) != 1:
+                print("There can't be same number\n")
+                duplicate = True
+                break
+        if not duplicate:
+            break
 
     name1_num_list = []
     name2_num_list = []
@@ -37,22 +56,28 @@ def start_game():
 def guess(num_list, origin_num, num_length, game_set):
     # input guessed number
     while True:
+        duplicate = False
         guessed_num = input("Guess a number: ")
-        if guessed_num == origin_num:
-            print("Correct!!")
-            game_set = True
-            return game_set
+        for i in range(num_length):
+            if str(guessed_num).count(str(guessed_num)[i]) != 1:
+                print("There can't be same number")
+                duplicate = True
+                break
 
-        if guessed_num in num_list:
-            print("Already guessed. Try another number")
-            continue
+        if not duplicate:
+            if guessed_num == origin_num:
+                print("Correct!!")
+                game_set = True
+                return game_set
 
-        #elif       *************중복 제거!!!!*******************
+            if guessed_num in num_list:
+                print("Already guessed. Try another number")
+                continue
 
-
-        else:
-            strike_ball(guessed_num, origin_num, num_length)
-            return game_set
+            else:
+                strike_ball(guessed_num, origin_num, num_length)
+                num_list.append(guessed_num)
+                return game_set
 
 
 def strike_ball(guessed_num, origin_num, num_length):
