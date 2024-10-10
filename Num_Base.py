@@ -54,10 +54,16 @@ def start_game():
         tries += 1
 
 def guess(num_list, origin_num, num_length, game_set):
+    print("Your previous guesses are: ")
+    for elem in num_list:
+        print(elem, end=' ')
+
+    print()
     # input guessed number
     while True:
         duplicate = False
         guessed_num = input("Guess a number: ")
+
         for i in range(num_length):
             if str(guessed_num).count(str(guessed_num)[i]) != 1:
                 print("There can't be same number")
