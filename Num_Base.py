@@ -63,6 +63,9 @@ def guess(num_list, origin_num, num_length, game_set):
     while True:
         duplicate = False
         guessed_num = input("Guess a number: ")
+        if len(guessed_num) != num_length:
+            print(f"Number must be {num_length} numbers")
+            continue
 
         for i in range(num_length):
             if str(guessed_num).count(str(guessed_num)[i]) != 1:
