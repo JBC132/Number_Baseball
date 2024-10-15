@@ -1,4 +1,9 @@
+from kivymd.app import MDApp
+from kivy.uix.screenmanager import Screen
+from kivy.lang import Builder
+
 import random
+
 
 def start_game():
     game_set = False
