@@ -4,6 +4,24 @@ from kivy.lang import Builder
 
 import random
 
+KV = '''
+MDScreen:
+    MDRectangleFlatButton:
+        text: "Test"
+'''
+
+class MainApp(MDApp):
+    def __init__(self):
+        super().__init__()
+        self.kvs = Builder.load_string(KV)
+
+    def build(self):
+        screen = Screen()
+        screen.add_widget(self.kvs)
+        return screen
+
+ma = MainApp()
+ma.run()
 
 def start_game():
     game_set = False
